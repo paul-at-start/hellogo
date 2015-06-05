@@ -6,7 +6,6 @@ package main
 
 import "fmt"
 
-func main()
-{
+func main() {
     fmt.Printf("hello, world\n")
 }

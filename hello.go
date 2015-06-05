@@ -31,6 +31,11 @@ func main() {
 
 func blurImage(rw http.ResponseWriter, r *http.Request) {
 
+	// Note: Panics are bad.
+	// In live settings, find other ways to return error
+
+	// headers are set via rw.Header().Set(key, value)
+
 	imgurl := r.URL.Query().Get("img")
 
 	cacheName := genCacheName(imgurl)
@@ -85,7 +90,6 @@ func blurImage(rw http.ResponseWriter, r *http.Request) {
 }
 
 func genCacheName(imageUrl string) string {
-	h := md5.New()
-	b := h.Sum([]byte(imageUrl))
+	b := md5.Sum([]byte(imageUrl))
 	return path.Join(cacheFolder, fmt.Sprintf("%x.cache", b))
 }
